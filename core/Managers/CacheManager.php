@@ -6,7 +6,13 @@ class CacheManager {
 
     public static function load(): ?array {
         if (file_exists(self::CACHE_FILE)) {
-            return include self::CACHE_FILE;
+            $routes = require self::CACHE_FILE;
+
+            var_dump($routes);
+
+            if (is_array($routes)) {
+                return $routes;
+            }
         }
         return null;
     }

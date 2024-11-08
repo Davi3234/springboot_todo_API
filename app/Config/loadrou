@@ -1,0 +1,8 @@
+#!/sr/bin/env php
+<?php
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use Core\Managers\CacheManager;
+
+CacheManager::load();

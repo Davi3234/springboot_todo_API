@@ -1,5 +1,4 @@
 <?php
-// src/Controllers/UserController.php
 namespace App\Controllers;
 
 use Core\Attributes\Controller;
@@ -18,9 +17,15 @@ class UserController {
         $this->userService = new UserService();
     }
 
-    #[Get('/')]
+    #[Get('')]
     #[Middleware(AuthMiddleware::class)]
     public function getAll() {
-        return (new Response())->status(HttpStatus::OK)->json($this->userService->getAllUsers());
+        return (new Response())->status(HttpStatus::OK)->json(['hello' => 'heloo']);
+    }
+
+    #[Get('/:id')]
+    #[Middleware(AuthMiddleware::class)]
+    public function updateUser() {
+        return (new Response())->status(HttpStatus::OK)->json(['hello' => 'heloo']);
     }
 }
