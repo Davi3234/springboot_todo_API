@@ -16,7 +16,7 @@ class Server
 
   public function __construct(array $controllers)
   {
-    $this->routes = CacheManager::load() ?? $this->registerRoutes($controllers);
+    $this->routes = CacheManager::load();
   }
 
   private function registerRoutes(array $controllers): array

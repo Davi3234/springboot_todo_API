@@ -1,8 +1,15 @@
-#!/sr/bin/env php
+#!/usr/bin/env php
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Core\Managers\CacheManager;
+use Core\Managers\RouteManager;
 
-CacheManager::load();
+$controllers = require __DIR__ . '/../app/Config/routes.php';
+
+$routeManager = new RouteManager($controllers);
+
+$routes = $routeManager->getRoutes();
+
+CacheManager::save($routes);

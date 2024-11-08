@@ -10,13 +10,13 @@ use Core\Http\Response;
 use Core\Middleware\AuthMiddleware;
 use App\Services\UserService;
 
-#[Controller('/users')]
+#[Controller('/auth/login')]
 class AuthController
 {
 
   public function __construct() {}
 
-  #[Get('/')]
+  #[Get]
   #[Middleware(AuthMiddleware::class)]
   public function getAll()
   {

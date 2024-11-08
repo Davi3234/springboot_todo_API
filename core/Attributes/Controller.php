@@ -1,7 +1,18 @@
 <?php
+
 namespace Core\Attributes;
 
-#[\Attribute(\Attribute::TARGET_CLASS)]
+use Attribute;
+
+#[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
 class Controller {
-    public function __construct(public string $prefix) {}
+
+  function __construct(
+    private readonly string $prefix = ''
+  ) {
+  }
+
+  function getPrefix() {
+    return $this->prefix;
+  }
 }

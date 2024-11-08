@@ -7,7 +7,7 @@ use Exception;
 
 class ApiException extends Exception
 {
-  private HttpStatus $status;
+  protected HttpStatus $status;
 
   public function __construct(HttpStatus $status, string $message = '')
   {

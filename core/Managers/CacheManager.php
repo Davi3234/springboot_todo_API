@@ -9,9 +9,7 @@ class CacheManager
   public static function load(): ?array
   {
     if (file_exists(self::CACHE_FILE)) {
-      $routes = require_once self::CACHE_FILE;
-
-      var_dump($routes);
+      $routes = require self::CACHE_FILE;
 
       if (is_array($routes)) {
         return $routes;
