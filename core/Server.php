@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 use Core\Enums\HttpStatus;
@@ -9,50 +10,54 @@ use Core\Http\Request;
 use Core\Http\Response;
 use Core\Attributes\Middleware;
 
-class Server {
-    private array $routes;
+class Server
+{
+  private array $routes;
 
-    public function __construct(array $controllers) {
-        $this->routes = CacheManager::load() ?? $this->registerRoutes($controllers);
-    }
-    
-    private function registerRoutes(array $controllers): array {
-        $routeManager = new RouteManager($controllers);
-        $routes = $routeManager->getRoutes();
-        CacheManager::save($routes);
-        return $routes;
-    }
+  public function __construct(array $controllers)
+  {
+    $this->routes = CacheManager::load() ?? $this->registerRoutes($controllers);
+  }
 
-    public function dispatch() {
-        try {
-            $request = new Request();
-            $method = $request->getMethod();
-            $path = $request->getPath();
+  private function registerRoutes(array $controllers): array
+  {
+    $routeManager = new RouteManager($controllers);
+    $routes = $routeManager->getRoutes();
+    CacheManager::save($routes);
+    return $routes;
+  }
 
-            if (isset($this->routes[$method][$path])) {
-                [$controllerClass, $action] = $this->routes[$method][$path];
-                $controller = new $controllerClass();
+  public function dispatch()
+  {
+    try {
+      $request = new Request();
+      $method = $request->getMethod();
+      $path = $request->getPath();
 
-                $reflectionMethod = new \ReflectionMethod($controllerClass, $action);
-                $middlewareAttr = $reflectionMethod->getAttributes(Middleware::class)[0] ?? null;
+      if (isset($this->routes[$method][$path])) {
+        [$controllerClass, $action] = $this->routes[$method][$path];
+        $controller = new $controllerClass();
 
-                if ($middlewareAttr) {
-                    $middlewareClass = $middlewareAttr->newInstance()->middlewareClass;
-                    $middleware = new $middlewareClass();
+        $reflectionMethod = new \ReflectionMethod($controllerClass, $action);
+        $middlewareAttr = $reflectionMethod->getAttributes(Middleware::class)[0] ?? null;
 
-                    if (!$middleware->handle()) {
-                        return;
-                    }
-                }
+        if ($middlewareAttr) {
+          $middlewareClass = $middlewareAttr->newInstance()->middlewareClass;
+          $middleware = new $middlewareClass();
 
-                return $controller->$action();
-            }
-
-            throw new ApiException(HttpStatus::NOT_FOUND, 'Route not found');
-        } catch (ApiException $e) {
-            (new Response())->status($e->getStatus())->json(['error' => $e->getMessage()]);
-        } catch (\Exception $e) {
-            (new Response())->status(HttpStatus::INTERNAL_SERVER_ERROR)->json(['error' => 'An unexpected error occurred']);
+          if (!$middleware->handle()) {
+            return;
+          }
         }
+
+        return $controller->$action();
+      }
+
+      throw new ApiException(HttpStatus::NOT_FOUND, 'Route not found');
+    } catch (ApiException $e) {
+      (new Response())->status($e->getStatus())->json(['error' => $e->getMessage()]);
+    } catch (\Exception $e) {
+      (new Response())->status(HttpStatus::INTERNAL_SERVER_ERROR)->json(['error' => 'An unexpected error occurred']);
     }
+  }
 }

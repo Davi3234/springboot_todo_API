@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use Core\Attributes\Controller;
@@ -10,22 +11,26 @@ use Core\Middleware\AuthMiddleware;
 use App\Services\UserService;
 
 #[Controller('/users')]
-class UserController {
-    private UserService $userService;
+class UserController
+{
+  private UserService $userService;
 
-    public function __construct() {
-        $this->userService = new UserService();
-    }
+  public function __construct()
+  {
+    $this->userService = new UserService();
+  }
 
-    #[Get('')]
-    #[Middleware(AuthMiddleware::class)]
-    public function getAll() {
-        return (new Response())->status(HttpStatus::OK)->json(['hello' => 'heloo']);
-    }
+  #[Get('')]
+  #[Middleware(AuthMiddleware::class)]
+  public function getAll()
+  {
+    return (new Response())->status(HttpStatus::OK)->json(['hello' => 'heloo']);
+  }
 
-    #[Get('/:id')]
-    #[Middleware(AuthMiddleware::class)]
-    public function updateUser() {
-        return (new Response())->status(HttpStatus::OK)->json(['hello' => 'heloo']);
-    }
+  #[Get('/:id')]
+  #[Middleware(AuthMiddleware::class)]
+  public function updateUser()
+  {
+    return (new Response())->status(HttpStatus::OK)->json(['hello' => 'heloo']);
+  }
 }

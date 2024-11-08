@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use Core\Attributes\Controller;
@@ -10,14 +11,15 @@ use Core\Middleware\AuthMiddleware;
 use App\Services\UserService;
 
 #[Controller('/users')]
-class AuthController {
+class AuthController
+{
 
-    public function __construct() {
-    }
+  public function __construct() {}
 
-    #[Get('/')]
-    #[Middleware(AuthMiddleware::class)]
-    public function getAll() {
-      return [];
-    }
+  #[Get('/')]
+  #[Middleware(AuthMiddleware::class)]
+  public function getAll()
+  {
+    return [];
+  }
 }

@@ -1,24 +1,28 @@
 <?php
+
 namespace Core\Managers;
 
-class CacheManager {
-    private const CACHE_FILE = __DIR__ . '/../../cache/routes.php';
+class CacheManager
+{
+  private const CACHE_FILE = __DIR__ . '/../../cache/routes.php';
 
-    public static function load(): ?array {
-        if (file_exists(self::CACHE_FILE)) {
-            $routes = require self::CACHE_FILE;
+  public static function load(): ?array
+  {
+    if (file_exists(self::CACHE_FILE)) {
+      $routes = require_once self::CACHE_FILE;
 
-            var_dump($routes);
+      var_dump($routes);
 
-            if (is_array($routes)) {
-                return $routes;
-            }
-        }
-        return null;
+      if (is_array($routes)) {
+        return $routes;
+      }
     }
+    return null;
+  }
 
-    public static function save(array $routes): void {
-        $data = "<?php\nreturn " . var_export($routes, true) . ";";
-        file_put_contents(self::CACHE_FILE, $data);
-    }
+  public static function save(array $routes): void
+  {
+    $data = "<?php\nreturn " . var_export($routes, true) . ";";
+    file_put_contents(self::CACHE_FILE, $data);
+  }
 }
