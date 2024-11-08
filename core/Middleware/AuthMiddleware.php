@@ -3,9 +3,11 @@ namespace Core\Middleware;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Core\Http\Response;
+use Core\Enums\HttpStatus;
 
 class AuthMiddleware {
-    public function handle(): void {
+    public function handle(): bool {
         $headers = apache_request_headers();
         $authHeader = $headers['Authorization'] ?? '';
 
@@ -13,16 +15,14 @@ class AuthMiddleware {
             $jwt = substr($authHeader, 7);
             try {
                 JWT::decode($jwt, new Key('your_secret_key', 'HS256'));
-                return;
+                return true;
             } catch (\Exception $e) {
-                http_response_code(401);
-                echo json_encode(['error' => 'Unauthorized']);
-                exit;
+                (new Response())->status(HttpStatus::UNAUTHORIZED)->json(['error' => 'Unauthorized']);
+                return false;
             }
         }
 
-        http_response_code(401);
-        echo json_encode(['error' => 'Authorization header missing or invalid']);
-        exit;
+        (new Response())->status(HttpStatus::UNAUTHORIZED)->json(['error' => 'Authorization header missing or invalid']);
+        return false;
     }
 }
