@@ -1,0 +1,39 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php-web
+    ports: 
+      - '80:80'
+    volumes:
+      - .:/var/www/html/
+    networks:
+      - app-network
+    env_file:
+      - .env
+    depends_on:
+      - bd_todo_list
+
+  bd_todo_list:
+    container_name: bd_todo_list
+    image: postgres:latest
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_bd_todo_list:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes: 
+  pg_bd_todo_list:
+
+networks:
+  app-network:
+    driver: bridge
