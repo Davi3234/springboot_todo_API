@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\DTOs\UserDTO;
 use App\Models\User;
 use App\Repositories\IUserRepository;
 use App\Services\UserService;
@@ -12,36 +11,38 @@ use PHPUnit\Framework\TestCase;
   class UserTest extends TestCase{
 
     #[Test]
-    public function mustCreateUser()
-    {
-        // Arrange
-        $dto = new UserDTO(
-            id: 1,
-            name: "Davi",
-            email: "davi@gmail.com",
-            password: "davi1234"
-        );
+    public function mustCreateUser(){
+      //Arrange
+      $name = "Davi";
+      $email = "davi@gmail.com";
+      $password = "davi1234";
 
-        $mockUser = new User(
-            id: 1,
-            name: $dto->name,
-            email: $dto->email,
-            password: $dto->password
-        );
+      //Act
+      $user = new User(
+        name: $name,
+        email: $email,
+        password: $password
+      );
 
-        $userRepository = $this->createMock(IUserRepository::class);
+      $userRepository = $this->createMock(IUserRepository::class);
+      
+      $userRepository
+        ->method('create')
+        ->with($user)
+        ->willReturn(new User(
+          id:1,
+          name: "Davi",
+          email: "davi@gmail.com",
+          password: "davi1234"
+        ));
 
-        $userRepository
-            ->method('create')
-            ->with($dto)
-            ->willReturn($mockUser);
-
-        $userService = new UserService($userRepository);
-
-        // Act
-        $result = $userService->create($dto);
-
-        // Assert
-        $this->assertEquals($mockUser, $result);
+      $userService = new UserService($userRepository);
+      
+      //Assert
+      $this->assertEquals($user, $userService->create([
+        'name' => $name,
+        'email'=> $email,
+        'password' => $password
+      ]));
     }
   }

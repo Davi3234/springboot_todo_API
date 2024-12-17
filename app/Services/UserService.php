@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\DTOs\UserDTO;
 use App\Models\User;
 use App\Repositories\IUserRepository;
 use App\Repositories\UserRepository;
@@ -13,12 +12,11 @@ class UserService{
     $this->userRepository = $userRepository;
   }
 
-  public function create(UserDTO $userDTO){
+  public function create(array $args){
     return new User(
-      id: $userDTO->id,
-      name: $userDTO->name,
-      email: $userDTO->email,
-      password: $userDTO->password
+      name: $args['name'],
+      email: $args['email'],
+      password: $args['password']
     );
   }
 }
