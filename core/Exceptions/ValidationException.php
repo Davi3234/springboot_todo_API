@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Exceptions;
+namespace Core\Exceptions;
 
 use Core\Enums\HttpStatus;
-use Exception;
 
-class ValidationException extends Exception{
+class ValidationException extends \Exception{
   protected HttpStatus $status;
 
   public function __construct(HttpStatus $status = HttpStatus::BAD_REQUEST, string $message = ''){
