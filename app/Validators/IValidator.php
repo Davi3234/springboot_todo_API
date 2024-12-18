@@ -1,6 +1,14 @@
 <?php
 
-use App\DTOs\UserDTO;
+namespace App\Validators;
+
+/**
+ * @template T
+ */
 interface IValidator{
-  public static function validate(UserDTO $dto): void;
+    /**
+     * @param T $dto
+     * @return void
+     */
+    public static function validate(object $dto): void;
 }

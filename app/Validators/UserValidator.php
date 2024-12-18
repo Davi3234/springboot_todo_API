@@ -1,10 +1,24 @@
 <?php
 
+namespace App\Validators;
+
 use App\DTOs\UserDTO;
-use App\Exceptions\ValidationException;
-class UserValidator implements IValidator
-{
-  public static function validate(UserDTO $dto): void{
+use Core\Exceptions\ValidationException;
+
+/**
+ * @implements IValidator<UserDTO>
+ */
+class UserValidator implements IValidator{
+  /**
+   * @param UserDTO $dto
+   * @return void
+   * @throws ValidationException
+   */
+  public static function validate(object $dto): void{
+    if (!$dto instanceof UserDTO) {
+      throw new \InvalidArgumentException("Invalid DTO provided.");
+    }
+
     if (empty($dto->name)) {
       throw new ValidationException(message: "Name is required.");
     }
@@ -17,5 +31,4 @@ class UserValidator implements IValidator
       throw new ValidationException(message: "Password must be at least 6 characters long.");
     }
   }
-
 }
