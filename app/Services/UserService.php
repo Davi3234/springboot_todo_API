@@ -6,6 +6,7 @@ use App\DTOs\UserDTO;
 use App\Models\User;
 use App\Repositories\IUserRepository;
 use App\Repositories\UserRepository;
+use App\Validators\UserValidator;
 class UserService{
   private IUserRepository $userRepository;
 
@@ -14,6 +15,8 @@ class UserService{
   }
 
   public function create(UserDTO $userDTO){
+    UserValidator::validate($userDTO);
+
     return new User(
       id: $userDTO->id,
       name: $userDTO->name,
