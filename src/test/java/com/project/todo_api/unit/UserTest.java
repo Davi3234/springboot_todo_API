@@ -20,8 +20,6 @@ public class UserTest {
   @Mock
   private UserRepository userRepository;
 
-  private UserMapper userMapper;
-
   @InjectMocks
   private UserService userService;
 
@@ -39,9 +37,8 @@ public class UserTest {
     String name = "Davi";
     String email = "davi@example.com";
     String password = "Password123!";
-    User user = new User(name, email, password);
     this.userDTO = new UserDTO(1L, name, email, password);
-    this.user = this.userMapper.toEntity(this.userDTO);
+    this.user = UserMapper.toEntity(this.userDTO);
     when(this.userRepository.save(this.user)).thenReturn(this.user);
 
     //Act

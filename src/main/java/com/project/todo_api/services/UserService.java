@@ -17,9 +17,6 @@ public class UserService {
   @Autowired
   private UserRepository repository;
 
-  @Autowired
-  private UserMapper userMapper;
-
   public List<User> getAllUsers() {
     return repository.findAll();
   }
@@ -29,15 +26,15 @@ public class UserService {
   }
 
   public User createUser(UserDTO userDTO) {
-        User user = userMapper.toEntity(userDTO);
-        return repository.save(user);
-    }
+    User user = UserMapper.toEntity(userDTO);
+    return repository.save(user);
+  }
 
   public User updateUser(Long id, UserDTO userDTO) {
     User user = repository.findById(id)
         .orElseThrow(() -> new RuntimeException("User not found"));
-        
-    user = userMapper.toEntity(userDTO);
+
+    user = UserMapper.toEntity(userDTO);
     return repository.save(user);
   }
 
