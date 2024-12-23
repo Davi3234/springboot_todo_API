@@ -8,9 +8,11 @@ This is a SpringBoot Back-End To-Do API, applying SOLID, Design Pattern and TDD.
 - FR04: The system must send emails when task change ended.
 
 ## The system Not Functional Requirements:
-- NFR01: The system must be done in PHP.
+- NFR01: The system must be done in Java Spring Boot.
 - NFR02: The system must be develop Test-Driven Development (TDD).
-- NFR03: The system must use JWT to autentication.
+- NFR03: The system must be develop using Clean Architeture.
+- NFR04: The system must be develop using Hexagonal Architecture.
+- NFR05: The system must use JWT to autentication.
 
 ## The system Business Rules
 - BR01: The user data are name, email and password.
