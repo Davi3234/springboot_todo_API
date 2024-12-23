@@ -1,5 +1,5 @@
-# PHP-To-Do-App
-This is a PHP Back-End To-Do App, applying SOLID, Design Pattern and TDD.
+# SpringBoot To-Do API
+This is a SpringBoot Back-End To-Do API, applying SOLID, Design Pattern and TDD.
 
 ## The system Functional Requirements:
 - FR01: The system must maintain Users.
