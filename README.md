@@ -1,5 +1,5 @@
 # SpringBoot To-Do API
-This is a Spring Boot back-end To-Do API, applying SOLID principles, Design Patterns, and Test-Driven Development (TDD).
+This is a Spring Boot back-end To-Do API, applying SOLID principles, Design Patterns, Unit and Integration Tests.
 
 ## Requirements
 
