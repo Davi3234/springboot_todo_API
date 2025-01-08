@@ -3,7 +3,7 @@ package com.project.todo_api.enums;
 public enum TaskPriority {
   LOW("L"),
   MEDIUM("M"),
-  HIGHT("H");
+  HIGH("H");
 
   private final String value;
 
