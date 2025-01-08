@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
@@ -28,6 +29,7 @@ public class Task {
   private Date creationDate;
   private Date endDate;
 
+  @Transient
   private TaskState state;
 
   public Task() {
