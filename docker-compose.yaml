@@ -28,4 +28,3 @@ services:
 
 volumes:
   postgres_todoapp:
-  backend:
