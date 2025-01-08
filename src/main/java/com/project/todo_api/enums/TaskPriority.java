@@ -1,13 +1,13 @@
 package com.project.todo_api.enums;
 
-public enum Status {
-  TODO("TD"),
-  DOING("DO"),
-  DONE("DN");
+public enum TaskPriority {
+  LOW("L"),
+  MEDIUM("M"),
+  HIGHT("H");
 
   private final String value;
 
-  Status(String value){
+  TaskPriority(String value){
     this.value = value;
   }
 
