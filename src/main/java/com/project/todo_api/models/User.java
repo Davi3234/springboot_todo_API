@@ -1,6 +1,5 @@
 package com.project.todo_api.models;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,7 +7,7 @@ import lombok.Data;
 @Entity
 @Table(name = "users")
 public class User {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -17,13 +16,12 @@ public class User {
   private String email;
   private String password;
 
-  public User(){}
+  public User() {
+  }
 
-  public User(String name, String email, String password){
+  public User(String name, String email, String password) {
     this.name = name;
     this.email = email;
     this.password = password;
   }
 }
-
-
