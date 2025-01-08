@@ -50,16 +50,14 @@ public class TaskController {
     return ResponseEntity.ok(taskService.updateTask(id, taskDto));
   }
 
-  @PutMapping("/next/{id}")
-  public ResponseEntity<Task> toNextState(@PathVariable Long id) {
+  @PutMapping("/{id}/state")
+  public ResponseEntity<Task> toTodoState(@PathVariable Long id, @RequestBody String state) {
     try {
-      Task task = taskService.getTaskById(id)
-          .orElseThrow(() -> new IllegalArgumentException("Task not found"));
-      taskStateService.advanceToNextState(task);
+      System.out.println(state);
+      Task task = taskStateService.changeState(id, state);
+
       return ResponseEntity.ok(task);
       
-    } catch (IllegalArgumentException e) {
-      return ResponseEntity.notFound().build();
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
