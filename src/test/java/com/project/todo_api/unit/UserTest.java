@@ -9,8 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.project.todo_api.dtos.UserDTO;
-import com.project.todo_api.mappers.UserMapper;
+import com.project.todo_api.dtos.DtoCreateUser;
 import com.project.todo_api.models.User;
 import com.project.todo_api.repositories.UserRepository;
 import com.project.todo_api.services.UserService;
@@ -23,9 +22,6 @@ public class UserTest {
   @InjectMocks
   private UserService userService;
 
-  private UserDTO userDTO;
-  private User user;
-
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
@@ -37,14 +33,15 @@ public class UserTest {
     String name = "Davi";
     String email = "davi@example.com";
     String password = "Password123!";
-    this.userDTO = new UserDTO(1L, name, email, password);
-    this.user = UserMapper.toEntity(this.userDTO);
-    when(this.userRepository.save(this.user)).thenReturn(this.user);
+    DtoCreateUser dtoCreateUser = new DtoCreateUser(name, email, password);
+    User user = new User(dtoCreateUser);
+
+    when(this.userRepository.save(user)).thenReturn(user);
 
     //Act
-    User userReturn = this.userService.createUser(this.userDTO);
+    User userReturn = this.userService.createUser(dtoCreateUser);
 
     //Assert
-    assertEquals(userReturn, this.user);
+    assertEquals(userReturn, user);
   }
 }
