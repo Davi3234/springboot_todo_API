@@ -37,3 +37,9 @@ This is a Spring Boot back-end To-Do API, applying SOLID principles, Design Patt
    ```bash
    docker-compose up --build -d
 3. The project should now be running.
+
+## Future new improves
+
+- Add Apache Kafka or RabbitMQ at the project.
+- Integrate with Grafana and Prometheus.
+- Create new front-end project.
