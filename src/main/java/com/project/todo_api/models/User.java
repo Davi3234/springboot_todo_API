@@ -1,11 +1,17 @@
 package com.project.todo_api.models;
 
+import com.project.todo_api.dtos.DtoCreateUser;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
   @Id
@@ -16,12 +22,9 @@ public class User {
   private String email;
   private String password;
 
-  public User() {
-  }
-
-  public User(String name, String email, String password) {
-    this.name = name;
-    this.email = email;
-    this.password = password;
+  public User(DtoCreateUser dtoCreateUser) {
+    this.name = dtoCreateUser.name();
+    this.email = dtoCreateUser.email();
+    this.password = dtoCreateUser.password();
   }
 }
