@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.project.todo_api.dtos.UserDTO;
+import com.project.todo_api.dtos.DtoCreateUser;
 import com.project.todo_api.models.User;
 import com.project.todo_api.services.UserService;
 
@@ -30,13 +30,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserDTO userDto) {
-        return ResponseEntity.ok(userService.createUser(userDto));
+    public ResponseEntity<User> createUser(@RequestBody DtoCreateUser dtoCreateUser) {
+        return ResponseEntity.ok(userService.createUser(dtoCreateUser));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDto) {
-        return ResponseEntity.ok(userService.updateUser(id, userDto));
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody DtoCreateUser dtoCreateUser) {
+        return ResponseEntity.ok(userService.updateUser(id, dtoCreateUser));
     }
 
     @DeleteMapping("/{id}")

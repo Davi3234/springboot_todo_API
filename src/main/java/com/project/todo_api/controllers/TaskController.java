@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.todo_api.dtos.TaskDTO;
+import com.project.todo_api.dtos.DtoCreateTask;
 import com.project.todo_api.models.Task;
 import com.project.todo_api.services.TaskService;
 import com.project.todo_api.services.TaskStateService;
@@ -41,13 +41,13 @@ public class TaskController {
   }
 
   @PostMapping
-  public ResponseEntity<Task> createTask(@RequestBody TaskDTO taskDto) {
-    return ResponseEntity.ok(taskService.createTask(taskDto));
+  public ResponseEntity<Task> createTask(@RequestBody DtoCreateTask dtoCreateTask) {
+    return ResponseEntity.ok(taskService.createTask(dtoCreateTask));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDto) {
-    return ResponseEntity.ok(taskService.updateTask(id, taskDto));
+  public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody DtoCreateTask dtoCreateTask) {
+    return ResponseEntity.ok(taskService.updateTask(id, dtoCreateTask));
   }
 
   @PutMapping("/{id}/state")
