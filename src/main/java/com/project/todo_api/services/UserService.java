@@ -6,8 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.todo_api.dtos.UserDTO;
-import com.project.todo_api.mappers.UserMapper;
+import com.project.todo_api.dtos.DtoCreateUser;
 import com.project.todo_api.models.User;
 import com.project.todo_api.repositories.UserRepository;
 
@@ -15,30 +14,30 @@ import com.project.todo_api.repositories.UserRepository;
 public class UserService {
 
   @Autowired
-  private UserRepository repository;
+  private UserRepository userRepository;
 
   public List<User> getAllUsers() {
-    return repository.findAll();
+    return userRepository.findAll();
   }
 
   public Optional<User> getUserById(Long id) {
-    return repository.findById(id);
+    return userRepository.findById(id);
   }
 
-  public User createUser(UserDTO userDTO) {
-    User user = UserMapper.toEntity(userDTO);
-    return repository.save(user);
+  public User createUser(DtoCreateUser dtoCreateUser) {
+    return userRepository.save(new User(dtoCreateUser));
   }
 
-  public User updateUser(Long id, UserDTO userDTO) {
-    User user = repository.findById(id)
+  public User updateUser(Long id, DtoCreateUser dtoCreateUser) {
+    User user = userRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("User not found"));
 
-    user = UserMapper.toEntity(userDTO);
-    return repository.save(user);
+    user = new User(dtoCreateUser);
+
+    return userRepository.save(user);
   }
 
   public void deleteUser(Long id) {
-    repository.deleteById(id);
+    userRepository.deleteById(id);
   }
 }
